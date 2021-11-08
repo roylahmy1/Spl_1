@@ -7,7 +7,7 @@ Studio* backup = nullptr;
 
 int main(int argc, char** argv){
 
-    std::cout << "Hello!!";
+    std::cout << "Test!!";
 
     if(argc!=2){
         std::cout << "usage: studio <config_path>" << std::endl;

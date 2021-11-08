@@ -11,6 +11,7 @@
 class Studio{		
 public:
 	Studio();
+    // read config file and convert to Trainers\workout_options\actionsLog vectors
     Studio(const std::string &configFilePath);
     void start();
     int getNumOfTrainers() const;
