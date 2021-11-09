@@ -26,6 +26,9 @@ private:
     std::vector<BaseAction*> actionsLog;
     // our functions
     int stringToInt(const std::string &str);
+    std::string trim(std::string str);
+    std::string rtrim(std::string str);
+    std::string ltrim(std::string str);
 };
 
 #endif

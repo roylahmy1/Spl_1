@@ -37,7 +37,7 @@ Studio::Studio(const std::string &configFilePath){
         int separatorIndex = capacityOfTrainers.find(',');
         int capacityOfTrainer = 0;
         if (separatorIndex != std::string::npos) {
-            capacityOfTrainer = stringToInt(capacityOfTrainers.substr(0, separatorIndex - 1));
+            capacityOfTrainer = stringToInt(capacityOfTrainers.substr(0, separatorIndex));
             capacityOfTrainers = capacityOfTrainers.substr(separatorIndex + 1, capacityOfTrainers.length() - (separatorIndex + 1));
         }
         else{
@@ -51,35 +51,35 @@ Studio::Studio(const std::string &configFilePath){
     for (int i = 2; i < properties.size(); ++i) {
 
         // 2 of the ',' that separate the values of th3e workout
-        int separatorIndex1 = capacityOfTrainers.find(',');
-        int separatorIndex2 = capacityOfTrainers.find(',', separatorIndex1 + 1);
+        int separatorIndex1 = properties[i].find(',');
+        int separatorIndex2 = properties[i].find(',', separatorIndex1 + 1);
 
         // find name, type and price of each workout
-        std::string name = properties[i].substr(0, separatorIndex1);
-        std::string str_type = properties[i].substr(separatorIndex1 + 1, separatorIndex2 - (separatorIndex1 + 1));
+        std::string name = trim(properties[i].substr(0, separatorIndex1));
+        std::string str_type = trim(properties[i].substr(separatorIndex1 + 1, separatorIndex2 - (separatorIndex1 + 1)));
         int price =  stringToInt(properties[i].substr(separatorIndex2 + 1, properties[i].length() - (separatorIndex2 + 1)));
 
         // convert type from string to enum
-        WorkoutType* enum_type;
+        WorkoutType enum_type;
         if (!str_type.compare("Anaerobic")) {
-            *enum_type = ANAEROBIC;
+            enum_type = ANAEROBIC;
         }
         else if (!str_type.compare("Cardio")) {
-            *enum_type = CARDIO;
+            enum_type = CARDIO;
         }
         else if (!str_type.compare("Mixed")) {
-            *enum_type = MIXED;
+            enum_type = MIXED;
         }
         else{
             throw "config syntax error: Invalid type, row " + (i + 1);
         }
 
         //
-        workout_options.push_back(Workout(i - 2, name, price, *enum_type));
+        workout_options.push_back(Workout(i - 2, name, price, enum_type));
 
         // clean (copies were sent and thus the values are useless)
-        delete enum_type;
-        enum_type = nullptr;
+        //delete enum_type;
+        //enum_type = nullptr;
     }
 
     // Close the file
@@ -105,4 +105,27 @@ std::vector<Workout>& Studio::getWorkoutOptions() {
 // util functions
 int Studio::stringToInt(const std::string &str) {
     return std::stoi(str);
+}
+std::string Studio::trim(std::string str) {
+    str = rtrim(str);
+    str = ltrim(str);
+    return str;
+}
+std::string Studio::rtrim(std::string str) {
+    int counter = str.size() - 1;
+    while (!str.substr(counter, 1).compare(" ") && str.size() > 0){
+        // if equal remove
+        str = str.substr(0, counter);
+        counter--;
+    }
+    return str;
+}
+std::string Studio::ltrim(std::string str) {
+    int counter = 1;
+    while (!str.substr(counter - 1, 1).compare(" ") && str.size() > 0){
+        // if equal remove
+        str = str.substr(counter, str.size() - counter);
+        counter++;
+    }
+    return str;
 }
