@@ -35,7 +35,11 @@ std::vector<OrderPair>& Trainer::getOrders(){
 }
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout>& workout_options){
     //
-
+    for(int i=0; i<workout_options.size(); i++)
+    {
+        OrderPair *a=new OrderPair(customer_id,workout_options[i]);
+      //  orderList.push_back(a);
+    }
 
 
     //
