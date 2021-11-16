@@ -14,8 +14,6 @@ public:
     std::string getName() const;
     int getPrice() const;
     WorkoutType getType() const;
-    Workout& operator=(const Workout &other);// copy assignment
-    Workout& operator=(Workout &&other); //move assignment
 private:
     void clear();
 	const int id;

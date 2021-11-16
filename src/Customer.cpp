@@ -94,8 +94,8 @@ std::string HeavyMuscleCustomer::toString() const {
     return s;
 };
 
-bool HeavyMuscleCustomer::comparing(const Workout &a, const Workout &b) {
-    return (b.getPrice() <= a.getPrice());
+bool HeavyMuscleCustomer::comparing(const Workout* a, const Workout* b) {
+    return ((*b).getPrice() <= (*a).getPrice());
 };
 
 FullBodyCustomer::FullBodyCustomer(std::string name, int id) : Customer(name, id) {

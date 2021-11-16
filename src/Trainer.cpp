@@ -41,10 +41,8 @@ void Trainer::order(const int customer_id, const std::vector<int> workout_ids, c
        {
            if(customer_id==workout_ids[j])
            {
-
-               orderList.push_back(OrderPair<customer_id,workout_options[i]>); //need to fix the orderpair i didnt find on the internet an effective way
+               orderList.push_back({customer_id, workout_options[i]}); //need to fix the orderpair i didnt find on the internet an effective way
            }
-
        }
     }
 
