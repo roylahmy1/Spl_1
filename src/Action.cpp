@@ -1,6 +1,7 @@
 #include "../include/Action.h"
 #include <string>
 #include <iostream>
+#include "../include/Studio.h"
 #include "../include/Customer.h"
 
 //Forward declaration
@@ -8,17 +9,37 @@
 BaseAction::BaseAction(){
 
 }
-ActionStatus BaseAction::getStatus() const{}
-void BaseAction::complete(){}
-void BaseAction::error(std::string errorMsg){}
-std::string BaseAction::getErrorMsg() const{}
-
-
-OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList): trainerId(id), customers(customersList){
+ActionStatus BaseAction::getStatus() const{
+    return status;
+}
+void BaseAction::complete(){
 
 }
-void OpenTrainer::act(Studio &studio) {}
-std::string OpenTrainer::toString() const { }
+void BaseAction::error(std::string errorMsg){
+
+}
+std::string BaseAction::getErrorMsg() const{
+    return errorMsg;
+}
+
+
+OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList): trainerId(id), customers(customersList){}
+void OpenTrainer::act(Studio &studio) {
+    // throw errors
+    if (studio.getNumOfTrainers() > trainerId) {
+        error("Workout session does not exist or is already open");
+    }
+    else if (studio.getTrainer(trainerId)->isOpen()) {
+        error("Workout session does not exist or is already open");
+    }
+    //
+    else{
+        Trainer* trainer = studio.getTrainer(trainerId);
+    }
+}
+std::string OpenTrainer::toString() const {
+
+}
 
 
 Order::Order(int id):BaseAction(),trainerId(id){ }

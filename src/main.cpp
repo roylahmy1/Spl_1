@@ -21,12 +21,12 @@ int main(int argc, char** argv){
     Customer* customer = new HeavyMuscleCustomer("Yoni", 2);
     vector<int> res = customer->order(studio.getWorkoutOptions());
 
+    //
     for (int i = 0; i <res.size(); ++i) {
         cout << res[i];
     }
 
     //
-
     if(backup!=nullptr){
     	delete backup;
     	backup = nullptr;
