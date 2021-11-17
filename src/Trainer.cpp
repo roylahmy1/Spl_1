@@ -16,6 +16,10 @@ void Trainer::removeCustomer(int id){
 Customer* Trainer::getCustomer(int id){
     return customersList[getCustomerIndex(id)];
 }
+void Trainer::setSalary()
+{
+    oldsalary=getSalary();
+}
 int Trainer::getCustomerIndex(int id) {
     int counter = 0;
     bool found = false;
@@ -41,7 +45,7 @@ void Trainer::order(const int customer_id, const std::vector<int> workout_ids, c
        {
            if(customer_id==workout_ids[j])
            {
-               orderList.push_back({customer_id, workout_options[i]}); //need to fix the orderpair i didnt find on the internet an effective way
+               orderList.push_back({customer_id, workout_options[i]});
            }
        }
     }
@@ -60,7 +64,7 @@ int Trainer::getSalary(){
     for (int i = 0; i < orderList.size(); ++i) {
         salary += orderList[i].second.getPrice();
     }
-    return salary;
+    return salary+oldsalary;
 }
 bool Trainer::isOpen(){
     return  open;

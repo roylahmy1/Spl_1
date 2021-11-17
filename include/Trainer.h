@@ -21,7 +21,9 @@ public:
     void closeTrainer();
     int getSalary();
     bool isOpen();
+    void setSalary();
 private:
+    int oldsalary;
     int capacity;
     bool open;
     std::vector<Customer*> customersList;

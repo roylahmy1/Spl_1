@@ -32,7 +32,7 @@ std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_optio
 };
 
 std::string SweatyCustomer::toString() const {
-    std::string s = getName() + "swt";
+    std::string s = getName() + ",swt";
     return s;
 };
 
@@ -65,7 +65,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_option
 };
 
 std::string CheapCustomer::toString() const {
-    std::string s = getName() + "chp";
+    std::string s = getName() + ",chp";
     return s;
 };
 
@@ -90,7 +90,7 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
 };
 
 std::string HeavyMuscleCustomer::toString() const {
-    std::string s = getName() + "mcl";
+    std::string s = getName() + ",mcl";
     return s;
 };
 
@@ -114,7 +114,6 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
                 if (result.size() == 1) { result.pop_back(); }
                 result.push_back(workout_options[i].getId());
                 cheapcardio = workout_options[i].getPrice();
-
             }
             if (cheapcardio == workout_options[i].getPrice()) {
                 if (result[0] > workout_options[i].getId()) {
@@ -163,6 +162,6 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
 };
 
 std::string FullBodyCustomer::toString() const {
-    std::string s = getName() + "fbd";
+    std::string s = getName() + ",fbd";
     return s;
 };
