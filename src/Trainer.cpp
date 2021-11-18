@@ -21,7 +21,11 @@ void Trainer::removeCustomer(int id) {
     delete customer;
 }
 Customer* Trainer::getCustomer(int id){
-    return customersList[getCustomerIndex(id)];
+    int index = getCustomerIndex(id);
+    if(customersList.size() > index){
+        return customersList[index];
+    }
+    return nullptr;
 }
 void Trainer::setSalary()
 {
@@ -43,6 +47,21 @@ std::vector<Customer*>& Trainer::getCustomers(){
 }
 std::vector<OrderPair>& Trainer::getOrders(){
     return orderList;
+}
+// get orders by customer id
+std::vector<OrderPair>& Trainer::getOrders(int id){
+    std::vector<OrderPair> pairs;
+    for (int i = 0; i < orderList.size(); ++i) {
+        if(orderList[i].first == id){
+            pairs.push_back(orderList[i]);
+        }
+    }
+    return pairs;
+}
+void Trainer::insert(std::vector<OrderPair>& pairs){
+    for (int i = 0; i < pairs.size(); ++i) {
+        orderList.push_back(pairs[i]);
+    }
 }
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout>& workout_options)
 {

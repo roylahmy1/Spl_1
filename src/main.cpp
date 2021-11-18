@@ -35,25 +35,38 @@ int main(int argc, char** argv){
         }
         if (!commandName.compare("status")) {
             cout << "it is status!!\n";
-            studio.getOrderAction(commandArgs)->act(studio);
+            studio.getStatusAction(commandArgs)->act(studio);
         }
         if (!commandName.compare("move")) {
             cout << "it is move!!\n";
+            studio.getMoveAction(commandArgs)->act(studio);
         }
         if (!commandName.compare("close")) {
+            studio.getCloseAction(commandArgs)->act(studio);
             cout << "it is close!!\n";
+        }
+        if (!commandName.compare("workout_options")) {
+            cout << "it is backup!!\n";
+            studio.getLogAction()->act(studio);
+        }
+        if (!commandName.compare("log")) {
+            cout << "it is backup!!\n";
+            studio.getLogAction()->act(studio);
         }
         if (!commandName.compare("backup")) {
             cout << "it is backup!!\n";
+            studio.getBackupAction()->act(studio);
         }
         if (!commandName.compare("restore")) {
             cout << "it is restore!!\n";
+            studio.getRestoreAction()->act(studio);
         }
         cout << "\n";
         cout << "args: " + commandArgs;
         cout << "\n";
     }
     cout << "it is close!!";
+    studio.getCloseAllAction()->act(studio);
 
     // clean
     if(backup!=nullptr){

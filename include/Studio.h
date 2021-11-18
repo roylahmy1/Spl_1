@@ -24,6 +24,14 @@ public:
     // get actions
     BaseAction* getOpenAction(std::string &command);
     BaseAction* getOrderAction(std::string &command);
+    BaseAction* getMoveAction(std::string &command);
+    BaseAction* getCloseAction(std::string &command);
+    BaseAction* getCloseAllAction();
+    BaseAction* getPrintWorkoutOptionsAction();
+    BaseAction* getStatusAction(std::string &command);
+    BaseAction* getLogAction();
+    BaseAction* getBackupAction();
+    BaseAction* getRestoreAction();
 
 private:
     bool open;

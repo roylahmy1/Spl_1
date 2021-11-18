@@ -219,11 +219,65 @@ BaseAction* Studio::getOrderAction(std::string &command) {
     BaseAction* action = new Order(trainerId);
     actionsLog.push_back(action);
 
-    // clean
-//    for (int i = 0; i < args.size(); ++i) {
-//        delete args[i];
-//    }
+    return action;
+}
 
-    //
+BaseAction* Studio::getMoveAction(std::string &command){
+    std::vector<std::string> args = split(command, " ");
+
+    int originTrainerId = stringToInt(args[0]);
+    int destTrainerId = stringToInt(args[1]);
+    int customerId = stringToInt(args[2]);
+    // start the action
+    BaseAction* action = new MoveCustomer(originTrainerId, destTrainerId, customerId);
+    actionsLog.push_back(action);
+
+    return action;
+}
+BaseAction* Studio::getCloseAction(std::string &command) {
+    std::vector<std::string> args = split(command, " ");
+
+    int trainerId = stringToInt(args[0]);
+    // start the action
+    BaseAction* action = new Close(trainerId);
+    actionsLog.push_back(action);
+
+    return action;
+}
+
+BaseAction *Studio::getCloseAllAction() {
+    BaseAction* action = new CloseAll();
+    actionsLog.push_back(action);
+    return action;
+}
+BaseAction *Studio::getPrintWorkoutOptionsAction() {
+    BaseAction* action = new PrintWorkoutOptions();
+    actionsLog.push_back(action);
+    return action;
+}
+
+BaseAction *Studio::getStatusAction(std::string &command) {
+    std::vector<std::string> args = split(command, " ");
+
+    int trainerId = stringToInt(args[0]);
+    // start the action
+    BaseAction* action = new PrintTrainerStatus(trainerId);
+    actionsLog.push_back(action);
+
+    return action;
+}
+BaseAction *Studio::getLogAction() {
+    BaseAction* action = new PrintActionsLog();
+    actionsLog.push_back(action);
+    return action;
+}
+BaseAction *Studio::getBackupAction() {
+    BaseAction* action = new BackupStudio();
+    actionsLog.push_back(action);
+    return action;
+}
+BaseAction *Studio::getRestoreAction() {
+    BaseAction* action = new RestoreStudio();
+    actionsLog.push_back(action);
     return action;
 }

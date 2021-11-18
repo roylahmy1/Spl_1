@@ -23,6 +23,8 @@ public:
     int getSalary();
     bool isOpen();
     void setSalary();
+    std::vector<OrderPair>& getOrders(int id);
+    void insert(std::vector<OrderPair>& pairs);
 private:
     int oldsalary;
     int capacity;
