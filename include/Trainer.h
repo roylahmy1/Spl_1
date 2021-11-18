@@ -7,6 +7,7 @@
 
 typedef std::pair<int, Workout> OrderPair;
 
+// IMPLEMENT RULE OF 5 !!
 class Trainer{
 public:
     Trainer(int t_capacity);

@@ -12,6 +12,8 @@ enum ActionStatus{
 //Forward declaration
 class Studio;
 
+
+// NEED RULE OF 5
 class BaseAction{
 public:
     BaseAction();
@@ -27,7 +29,7 @@ private:
     ActionStatus status;
 };
 
-
+// NEED RULE OF 5
 class OpenTrainer : public BaseAction {
 public:
     OpenTrainer(int id, std::vector<Customer *> &customersList);

@@ -7,6 +7,7 @@ enum WorkoutType{
     ANAEROBIC, MIXED, CARDIO
 };
 
+// IMPLEMENT RULE OF 5 ??
 class Workout{
 public:
     Workout(int w_id, std::string w_name, int w_price, WorkoutType w_type);

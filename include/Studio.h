@@ -7,7 +7,7 @@
 #include "Trainer.h"
 #include "Action.h"
 
-
+// IMPLEMENT RULE OF 5 !!
 class Studio{		
 public:
 	Studio();
@@ -18,6 +18,12 @@ public:
     Trainer* getTrainer(int tid);
 	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
     std::vector<Workout>& getWorkoutOptions();
+    int stringToInt(const std::string &str);
+    int getCustomerCounter();
+    void setCustomerCounter(int c);
+    // get actions
+    BaseAction* getOpenAction(std::string &command);
+    BaseAction* getOrderAction(std::string &command);
 
 private:
     bool open;
@@ -25,10 +31,12 @@ private:
     std::vector<Workout> workout_options;
     std::vector<BaseAction*> actionsLog;
     // our functions
-    int stringToInt(const std::string &str);
     std::string trim(std::string str);
     std::string rtrim(std::string str);
     std::string ltrim(std::string str);
+    static std::vector<std::string> split(const std::string& s, const std::string& delimiter);
+    // customer counter for id management - every time new customers their id will be set using this counter;
+    int customerCounter = 0;
 };
 
 #endif

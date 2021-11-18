@@ -23,10 +23,11 @@ std::string BaseAction::getErrorMsg() const{
 }
 
 
+
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList): trainerId(id), customers(customersList){}
 void OpenTrainer::act(Studio &studio) {
     // throw errors
-    if (studio.getNumOfTrainers() > trainerId) {
+    if (studio.getNumOfTrainers() <= trainerId) {
         error("Workout session does not exist or is already open");
     }
     else if (studio.getTrainer(trainerId)->isOpen()) {
@@ -53,7 +54,7 @@ std::string OpenTrainer::toString() const
 Order::Order(int id):BaseAction(),trainerId(id){ }
 void Order::act(Studio &studio){
     // throw errors
-    if (studio.getNumOfTrainers() > trainerId) {
+    if (studio.getNumOfTrainers() <= trainerId) {
         error("Workout session does not exist or is already open");
     }
     //
@@ -66,7 +67,7 @@ void Order::act(Studio &studio){
         output+="open"+trainerId;
         for(int i=0; i<customers.size(); i++)
         {
-            output+=customers[i]->toString();
+            std::cout << customers[i]->toString() << std::endl;
         }
     }
 }

@@ -5,6 +5,7 @@
 #include <string>
 #include "Workout.h"
 
+// NEED RULE OF 5 ??
 class Customer{
 public:
     Customer(std::string c_name, int c_id);

@@ -129,3 +129,101 @@ std::string Studio::ltrim(std::string str) {
     }
     return str;
 }
+
+int Studio::getCustomerCounter() {
+    return customerCounter;
+}
+void Studio::setCustomerCounter(int c) {
+    customerCounter = c;
+}
+std::vector<std::string> Studio::split(const std::string& s, const std::string& delimiter){
+    std::vector<std::string> v;
+    int s_pos = 0;
+    int e_pos;
+    while ((e_pos = s.find(delimiter, s_pos)) != std::string::npos) {
+//        std::string segment = ;
+//        std::string* segmentP = &segment;
+        v.push_back(s.substr(s_pos, e_pos));
+        s_pos = e_pos + 1;
+    }
+    // another for the last
+    //std::string segment = s.substr(s_pos, s.size() - s_pos);
+    //std::string* segmentP = &segment;
+    v.push_back(s.substr(s_pos, s.size() - s_pos));
+
+    return v;
+}
+
+//// ************************************************************88
+//// ************************************************************88
+//// ************************************************************88
+//// ************************************************************88
+// get actions
+//// ************************************************************88
+//// ************************************************************88
+//// ************************************************************88
+//// ************************************************************88
+
+BaseAction* Studio::getOpenAction(std::string &command) {
+    std::vector<std::string> args = split(command, " ");
+    std::vector<Customer*> customers;
+
+    int trainerId = stringToInt(args[0]);
+    // create the customers out of the given data
+    for (int i = 1; i < args.size(); ++i) {
+        // customer data = {name, type}
+        std::vector<std::string> customerData = split(args[i], ",");
+        std::string name = customerData[0];
+        std::string type = customerData[1];
+        int id = getCustomerCounter() + i;
+        if (!type.compare("swt")){
+            customers.push_back(new SweatyCustomer(name, id));
+        }
+        if (!type.compare("chp")){
+            customers.push_back(new CheapCustomer(name, id));
+        }
+        if (!type.compare("mcl")){
+            customers.push_back(new HeavyMuscleCustomer(name, id));
+        }
+        if (!type.compare("fbd")){
+            customers.push_back(new FullBodyCustomer(name, id));
+        }
+
+        // clean
+//        for (int i = 0; i < customerData.size(); ++i) {
+//            delete customerData[i];
+//        }
+    }
+    // start the action
+    BaseAction* action = new OpenTrainer(trainerId, customers);
+    actionsLog.push_back(action);
+
+    // update the customer counter
+    setCustomerCounter(getCustomerCounter() + args.size() - 1);
+
+    // clean
+//    for (int i = 0; i < args.size(); ++i) {
+//        delete args[i];
+//    }
+
+    //
+    return action;
+}
+
+
+BaseAction* Studio::getOrderAction(std::string &command) {
+    std::vector<std::string> args = split(command, " ");
+
+    int trainerId = stringToInt(args[0]);
+    // start the action
+    BaseAction* action = new Order(trainerId);
+    actionsLog.push_back(action);
+
+    // clean
+//    for (int i = 0; i < args.size(); ++i) {
+//        delete args[i];
+//    }
+
+    //
+    return action;
+}
