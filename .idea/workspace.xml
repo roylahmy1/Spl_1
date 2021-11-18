@@ -85,11 +85,6 @@
 <<<<<<< Updated upstream
   </component>
   <component name="RunManager" selected="Makefile Application.run - without build">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Spl_1" TARGET_NAME="all" CONFIG_NAME="all" version="1">
 =======
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -115,7 +110,15 @@
     <configuration name="run - without build" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="$PROJECT_DIR$/../inputex/inputspl1.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Spl_1" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/bin/studio">
       <method v="2" />
     </configuration>
+<<<<<<< Updated upstream
 =======
+>>>>>>> Stashed changes
+=======
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
 >>>>>>> Stashed changes
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -141,6 +144,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1636466189607</updated>
+<<<<<<< Updated upstream
       <workItem from="1636466192938" duration="43308000" />
 =======
       <changelist id="a8dd1a1f-b145-47de-88db-98b8edb80a36" name="Changes" comment="" />
@@ -154,6 +158,10 @@
       <workItem from="1637071388113" duration="4374000" />
       <workItem from="1637227808395" duration="3000" />
       <workItem from="1637228718494" duration="4000" />
+>>>>>>> Stashed changes
+=======
+      <workItem from="1636466192938" duration="57656000" />
+      <workItem from="1637163330475" duration="14358000" />
 >>>>>>> Stashed changes
     </task>
     <servers />

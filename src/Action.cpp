@@ -43,6 +43,7 @@ void OpenTrainer::act(Studio &studio) {
             trainer->addCustomer(customers[i]);
             output+=customers[i]->toString();
         }
+        trainer->openTrainer();
     }
 }
 std::string OpenTrainer::toString() const
@@ -59,16 +60,15 @@ void Order::act(Studio &studio){
     }
     //
     else{
-        std::string output="";
+
         Trainer* trainer = studio.getTrainer(trainerId);
         std::vector<Customer *> customers = trainer->getCustomers();
-        // create for some reason workout_ids
-
-        output+="open"+trainerId;
-        for(int i=0; i<customers.size(); i++)
-        {
-            std::cout << customers[i]->toString() << std::endl;
+        //
+        for (int i = 0; i <customers.size(); ++i) {
+            std::vector<int> customer_workout_ids = customers[i]->order(studio.getWorkoutOptions());
+            trainer->order(customers[i]->getId(), customer_workout_ids, studio.getWorkoutOptions());
         }
+        //
     }
 }
 std::string Order::toString() const{}

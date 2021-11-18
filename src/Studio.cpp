@@ -143,13 +143,13 @@ std::vector<std::string> Studio::split(const std::string& s, const std::string& 
     while ((e_pos = s.find(delimiter, s_pos)) != std::string::npos) {
 //        std::string segment = ;
 //        std::string* segmentP = &segment;
-        v.push_back(s.substr(s_pos, e_pos));
+        v.push_back(s.substr(s_pos, e_pos - s_pos));
         s_pos = e_pos + 1;
     }
     // another for the last
     //std::string segment = s.substr(s_pos, s.size() - s_pos);
     //std::string* segmentP = &segment;
-    v.push_back(s.substr(s_pos, s.size() - s_pos));
+    v.push_back(s.substr(s_pos, e_pos - s_pos));
 
     return v;
 }

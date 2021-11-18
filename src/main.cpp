@@ -26,29 +26,30 @@ int main(int argc, char** argv){
         commandArgs = command.substr(command.find(' ') + 1,command.size() - command.find(' ') - 1);
 
         if (!commandName.compare("open")) {
-            cout << "it is open!!";
+            cout << "it is open!!\n";
             studio.getOpenAction(commandArgs)->act(studio);
         }
         if (!commandName.compare("order")) {
-            cout << "it is order!!";
+            cout << "it is order!!\n";
             studio.getOrderAction(commandArgs)->act(studio);
         }
         if (!commandName.compare("status")) {
-            cout << "it is status!!";
+            cout << "it is status!!\n";
             studio.getOrderAction(commandArgs)->act(studio);
         }
         if (!commandName.compare("move")) {
-            cout << "it is move!!";
+            cout << "it is move!!\n";
         }
         if (!commandName.compare("close")) {
-            cout << "it is close!!";
+            cout << "it is close!!\n";
         }
         if (!commandName.compare("backup")) {
-            cout << "it is backup!!";
+            cout << "it is backup!!\n";
         }
         if (!commandName.compare("restore")) {
-            cout << "it is restore!!";
+            cout << "it is restore!!\n";
         }
+        cout << "\n";
         cout << "args: " + commandArgs;
         cout << "\n";
     }
