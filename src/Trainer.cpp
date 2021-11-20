@@ -15,14 +15,30 @@ void Trainer::removeCustomer(int id) {
     int index =  getCustomerIndex(id);
     Customer* customer = getCustomer(id);
     customersList.erase(customersList.begin() + index);
-    // remove orderpair
-
-
-    delete customer;
+    // remove orderpair by creating copy, and then removing original
+    std::vector<OrderPair> orderListCopy;
+    int counter=getOrders().size();
+    for(int i=0; i<counter; i++)
+    {
+        if(orderList[i].first != id)
+        {
+            orderListCopy.push_back(orderList[i]);
+        }
+    }
+    // overwrite original orderList
+    orderList.clear();
+    for (int i = 0; i <orderListCopy.size(); ++i) {
+        orderList.push_back(orderListCopy[i]);
+    }
+    // don't delete the customer as it may be copied to other trainer
+    // delete customer;
 }
+
+
+
 Customer* Trainer::getCustomer(int id){
     int index = getCustomerIndex(id);
-    if(customersList.size() > index){
+    if(customersList.size() > index && index >= 0){
         return customersList[index];
     }
     return nullptr;
@@ -40,6 +56,9 @@ int Trainer::getCustomerIndex(int id) {
         }
         counter++;
     }
+    if(!found){
+        return -1;
+    }
     return counter - 1;
 }
 std::vector<Customer*>& Trainer::getCustomers(){
@@ -49,7 +68,7 @@ std::vector<OrderPair>& Trainer::getOrders(){
     return orderList;
 }
 // get orders by customer id
-std::vector<OrderPair>& Trainer::getOrders(int id){
+std::vector<OrderPair> Trainer::getOrders(int id){
     std::vector<OrderPair> pairs;
     for (int i = 0; i < orderList.size(); ++i) {
         if(orderList[i].first == id){
@@ -58,7 +77,7 @@ std::vector<OrderPair>& Trainer::getOrders(int id){
     }
     return pairs;
 }
-void Trainer::insert(std::vector<OrderPair>& pairs){
+void Trainer::insert(std::vector<OrderPair> pairs){
     for (int i = 0; i < pairs.size(); ++i) {
         orderList.push_back(pairs[i]);
     }
@@ -78,7 +97,7 @@ void Trainer::openTrainer(){
 void Trainer::closeTrainer(){
     open = false;
     // clean customers + clean order pairs
-    reset();
+   reset();
     // update salary
 
 }
@@ -87,13 +106,11 @@ void Trainer::clean(){
 }
 void Trainer::reset(){
     // clean customers + clean order pairs
-    for (int i = customersList.size(); i > 0 ; --i) {
+    for (int i = customersList.size() - 1; i >= 0 ; --i) {
         delete customersList[i];
         customersList.pop_back();
     }
-    for (int i = orderList.size(); i > 0 ; --i) {
-        orderList.pop_back();
-    }
+    orderList.clear();
 }
 
 int Trainer::getSalary(){

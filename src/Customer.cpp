@@ -15,7 +15,7 @@ std::string Customer::getName() const {
 int Customer::getId() const {
     return id;
 };
-
+Customer::~Customer() {};
 
 SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {
 

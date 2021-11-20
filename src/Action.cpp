@@ -59,7 +59,11 @@ Order::Order(int id) : BaseAction(), trainerId(id) {}
 void Order::act(Studio &studio) {
     // throw errors
     if (studio.getNumOfTrainers() <= trainerId) {
-        error("Workout session does not exist or is already open");
+        error("Trainer is not exist or is not open");
+    }
+    else if(!studio.getTrainer(trainerId)->isOpen())
+    {
+        error("Trainer is not exist or is not open");
     }
         //
     else {
@@ -82,26 +86,28 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId)
         : BaseAction(), srcTrainer(src), dstTrainer(dst), id(customerId) {}
 
 void MoveCustomer::act(Studio &studio) {
-    if (studio.getNumOfTrainers() >= srcTrainer || studio.getNumOfTrainers() >= dstTrainer) {
+    if (studio.getNumOfTrainers() <= srcTrainer || studio.getNumOfTrainers() <= dstTrainer) {
         error("Cannot move customer");
     }
-    Trainer *trainersrc = studio.getTrainer(srcTrainer);
-    Trainer *trainerdst = studio.getTrainer(dstTrainer);
-    if (!trainersrc->isOpen() || !trainerdst->isOpen()) {
-        error("Cannot move customer");
-    } else {
-        std::vector<Customer *> customers = trainersrc->getCustomers();
-        Customer *customer = trainersrc->getCustomer(id);
-        if (!customer) {
-            error("Cannot move customer");
-        }
-        if (trainerdst->getCapacity() == trainerdst->getCustomers().size()) {
+    else {
+        Trainer *trainersrc = studio.getTrainer(srcTrainer);
+        Trainer *trainerdst = studio.getTrainer(dstTrainer);
+        if (!trainersrc->isOpen() || !trainerdst->isOpen()) {
             error("Cannot move customer");
         } else {
-            Customer *remove = trainersrc->getCustomer(id);
-            trainerdst->addCustomer(remove);
-            trainerdst->insert(trainersrc->getOrders(id));
-            trainersrc->removeCustomer(id);
+            //  std::vector<Customer *> customers = trainersrc->getCustomers();
+            Customer *customer = trainersrc->getCustomer(id);
+            if (!customer) {
+                error("Cannot move customer");
+            }
+            else if (trainerdst->getCapacity() == trainerdst->getCustomers().size()) {
+                error("Cannot move customer");
+            } else {
+                Customer *remove = trainersrc->getCustomer(id);
+                trainerdst->addCustomer(remove);
+                trainerdst->insert(trainersrc->getOrders(id));
+                trainersrc->removeCustomer(id);
+            }
         }
     }
 }
@@ -113,17 +119,20 @@ Close::Close(int id) : BaseAction(), trainerId(id) {}
 
 void Close::act(Studio &studio) {
     if (trainerId >= studio.getNumOfTrainers()) {
-        std::cout << "Trainer does not exist or is not open";
+        error("Trainer does not exist or is not open");
     }
-    Trainer *trainer = studio.getTrainer(trainerId);
-    if (!trainer->isOpen()) {
-        std::cout << "Trainer does not exist or is not open";
-    } else {
-        trainer->setSalary();
-        trainer->closeTrainer();
-        std::cout << "Trainer" + std::to_string(trainerId) + "closed. salary" + std::to_string(trainer->getSalary()) +
-                     "NIS";
+    else {
+        Trainer *trainer = studio.getTrainer(trainerId);
+        if (!trainer->isOpen()) {
+            error("Trainer does not exist or is not open");
+        } else {
+            trainer->setSalary();
+            trainer->closeTrainer();
+            std::cout << "Trainer " + std::to_string(trainerId) + " closed. Salary" +
+                         std::to_string(trainer->getSalary()) +
+                         " NIS";
 
+        }
     }
 }
 
@@ -134,13 +143,11 @@ CloseAll::CloseAll() : BaseAction() {
 }
 
 void CloseAll::act(Studio &studio) {
-    Trainer *trainer;
     for (int i = 0; i < studio.getNumOfTrainers(); i++) {
-        for (int j = 0; j < studio.getTrainer(i)->getCustomers().size(); j++) {
-            trainer = studio.getTrainer(i);
-            trainer->removeCustomer(trainer->getCustomers()[j]->getId());
-        }
-        std::cout << "Trainer" + std::to_string(i) + "closed. salary" + std::to_string(trainer->getSalary()) + "NIS";
+        Trainer *trainer = studio.getTrainer(i);
+       if(trainer->isOpen()){
+           std::cout << "Trainer " + std::to_string(i) + " closed. salary " + std::to_string(trainer->getSalary()) + " NIS \n";
+       }
     }
 }
 
