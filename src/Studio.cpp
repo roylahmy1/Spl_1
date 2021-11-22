@@ -154,15 +154,38 @@ std::vector<std::string> Studio::split(const std::string& s, const std::string& 
     return v;
 }
 
-//// ************************************************************88
-//// ************************************************************88
-//// ************************************************************88
-//// ************************************************************88
-// get actions
-//// ************************************************************88
-//// ************************************************************88
-//// ************************************************************88
-//// ************************************************************88
+
+//// ************************************************************
+//// **** RULE OF 5 ****
+Studio::~Studio() {
+    clean();
+}
+void Studio::clean() {
+    for (int i = 0; i < trainers.size(); ++i) {
+        delete trainers[i];
+    }
+    trainers.clear();
+
+    for (int i = 0; i < actionsLog.size(); ++i) {
+        delete actionsLog[i];
+    }
+    actionsLog.clear();
+}
+Studio::Studio(const Studio &other) {
+    // copy trainers
+    for (int i = 0; i < other.trainers.size(); ++i) {
+        Trainer* trainer = new Trainer(const *other.trainers[i]);
+    }
+
+    return *this;
+}
+
+
+//// ************************************************************
+
+
+//// ************************************************************
+//// ****  get actions ****
 
 BaseAction* Studio::getOpenAction(std::string &command) {
     std::vector<std::string> args = split(command, " ");
@@ -209,8 +232,6 @@ BaseAction* Studio::getOpenAction(std::string &command) {
     //
     return action;
 }
-
-
 BaseAction* Studio::getOrderAction(std::string &command) {
     std::vector<std::string> args = split(command, " ");
 
@@ -221,7 +242,6 @@ BaseAction* Studio::getOrderAction(std::string &command) {
 
     return action;
 }
-
 BaseAction* Studio::getMoveAction(std::string &command){
     std::vector<std::string> args = split(command, " ");
 
@@ -244,7 +264,6 @@ BaseAction* Studio::getCloseAction(std::string &command) {
 
     return action;
 }
-
 BaseAction *Studio::getCloseAllAction() {
     BaseAction* action = new CloseAll();
     actionsLog.push_back(action);
@@ -255,7 +274,6 @@ BaseAction *Studio::getPrintWorkoutOptionsAction() {
     actionsLog.push_back(action);
     return action;
 }
-
 BaseAction *Studio::getStatusAction(std::string &command) {
     std::vector<std::string> args = split(command, " ");
 
@@ -281,3 +299,5 @@ BaseAction *Studio::getRestoreAction() {
     actionsLog.push_back(action);
     return action;
 }
+
+//// ************************************************************

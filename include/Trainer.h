@@ -25,6 +25,14 @@ public:
     void setSalary();
     std::vector<OrderPair> getOrders(int id);
     void insert(std::vector<OrderPair> pairs);
+
+    /// Rule of 5
+    virtual ~Trainer();
+    Trainer(const Trainer &other);
+    Trainer(Trainer &&other);
+    Trainer& operator=(const Trainer &other);
+    Trainer& operator=(Trainer &&other);
+
 private:
     int oldsalary;
     int capacity;
@@ -35,6 +43,7 @@ private:
     int getCustomerIndex(int id);
     void clean();
     void reset();
+    void copy(const Trainer &other);
 
 };
 

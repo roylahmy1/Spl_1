@@ -13,6 +13,11 @@ public:
 	Studio();
     // read config file and convert to Trainers\workout_options\actionsLog vectors
     Studio(const std::string &configFilePath);
+    virtual ~Studio();
+    Studio(const Studio &other);
+    Studio(Studio &&other);
+    Studio& operator=(const Studio &other);
+    Studio& operator=(Studio &&other);
     void start();
     int getNumOfTrainers() const;
     Trainer* getTrainer(int tid);
@@ -43,6 +48,7 @@ private:
     std::string rtrim(std::string str);
     std::string ltrim(std::string str);
     static std::vector<std::string> split(const std::string& s, const std::string& delimiter);
+    void clean();
     // customer counter for id management - every time new customers their id will be set using this counter;
     int customerCounter = 0;
 };

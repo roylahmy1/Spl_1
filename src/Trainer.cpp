@@ -123,3 +123,49 @@ int Trainer::getSalary(){
 bool Trainer::isOpen(){
     return  open;
 }
+
+
+
+
+//// ************************************************************
+//// **** RULE OF 5 ****
+Trainer::~Trainer() {
+    clean();
+}
+Trainer::Trainer(const Trainer &other) {
+    copy(other);
+}
+Trainer &Trainer::operator=(const Trainer &other) {
+    if(this != &other){
+        clean();
+        copy(other);
+    }
+    return *this;
+}
+void Trainer::copy(const Trainer &other) {
+    capacity = other.capacity;
+    oldsalary = other.oldsalary;
+    open = other.open;
+    // cloning customers, by virtual clone method
+    for (int i = 0; i < other.customersList.size(); ++i) {
+        customersList.push_back(other.customersList[i]->clone());
+    }
+    for (int i = 0; i < other.orderList.size(); ++i) {
+        orderList.push_back({other.orderList[i].first, other.orderList[i].second});
+    }
+}
+Trainer::Trainer(Trainer &&other) {
+    copy(other);
+    other.clean();
+}
+Trainer &Trainer::operator=(Trainer &&other) {
+    if(this != &other){
+        clean();
+        copy(other);
+        other.clean();
+    }
+    return *this;
+}
+
+//// ************************************************************
+
