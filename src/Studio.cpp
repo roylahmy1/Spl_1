@@ -252,14 +252,14 @@ BaseAction* Studio::getOpenAction(std::string &command) {
             customers.push_back(new FullBodyCustomer(name, id));
         }
     }
-    // start the action
+
     BaseAction* action = new OpenTrainer(trainerId, customers);
     actionsLog.push_back(action);
 
     // update the customer counter
     setCustomerCounter(getCustomerCounter() + args.size() - 1);
 
-    //
+    // start the action
     return action;
 }
 BaseAction* Studio::getOrderAction(std::string &command) {

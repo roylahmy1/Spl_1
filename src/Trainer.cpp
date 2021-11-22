@@ -22,7 +22,7 @@ void Trainer::removeCustomer(int id) {
     {
         if(orderList[i].first != id)
         {
-            orderListCopy.push_back(orderList[i]);
+            orderListCopy.push_back({orderList[i].first, orderList[i].second});
         }
     }
     // overwrite original orderList

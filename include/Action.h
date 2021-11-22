@@ -22,6 +22,7 @@ public:
     virtual std::string toString() const=0;
     virtual BaseAction* clone() = 0;
     std::string statusToString() const;
+    virtual ~BaseAction();
 protected:
     void complete();
     void error(std::string errorMsg);

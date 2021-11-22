@@ -13,6 +13,7 @@ public:
     virtual std::string toString() const = 0;
     std::string getName() const;
     int getId() const;
+    virtual ~Customer();
     virtual Customer* clone() const = 0;
 private:
     const std::string name;

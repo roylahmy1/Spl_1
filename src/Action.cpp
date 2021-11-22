@@ -34,10 +34,11 @@ std::string BaseAction::statusToString() const {
         return "Error: " + errorMsg;
     }
 }
+BaseAction::~BaseAction() {} // virtual destructor so compiler doesn't create it's own default static bind destructor
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) : trainerId(id) {
     for (int i = 0; i < customersList.size(); ++i) {
-        customers.push_back(customersList[i]->clone());
+        customers.push_back(customersList[i]);
     }
 }
 void OpenTrainer::act(Studio &studio) {
@@ -107,9 +108,11 @@ void OpenTrainer::copy(const OpenTrainer &other) {
 }
 void OpenTrainer::clean(){
     // clean customers + clean order pairs
-    for (int i = customers.size() - 1; i >= 0 ; --i) {
-        delete customers[i];
+    int size =  customers.size();
+    for (int i = size - 1; i >= size; --i) {
+        Customer* customer = customers[i];
         customers.pop_back();
+        delete customer;
     }
     customers.clear();
 }
