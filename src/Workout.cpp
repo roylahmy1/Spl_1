@@ -14,14 +14,3 @@ int Workout::getPrice() const {
 WorkoutType Workout::getType() const {
     return type;
 };
-/*Workout& Workout::operator=(const Workout &other)
- {
-    if(this != &other)
-    {
-        clear();
-    }
-}*/
-void Workout::clear()
-{
-    // delete name
-}

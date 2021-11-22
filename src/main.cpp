@@ -45,7 +45,7 @@ int main(int argc, char** argv){
         }
         if (!commandName.compare("workout_options")) {
 //            cout << "it is backup!!\n";
-            studio.getLogAction()->act(studio);
+            studio.getPrintWorkoutOptionsAction()->act(studio);
         }
         if (!commandName.compare("log")) {
 //            cout << "it is backup!!\n";

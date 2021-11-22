@@ -160,32 +160,72 @@ std::vector<std::string> Studio::split(const std::string& s, const std::string& 
 Studio::~Studio() {
     clean();
 }
+Studio::Studio(const Studio &other) {
+    copy(other);
+}
+Studio &Studio::operator=(const Studio &other) {
+    if(this != &other){
+        clean();
+        copy(other);
+    }
+    return *this;
+}
+Studio::Studio(Studio &&other) {
+    copy(other);
+    other.clean();
+}
+Studio &Studio::operator=(Studio &&other) {
+    if(this != &other){
+        clean();
+        copy(other);
+        other.clean();
+    }
+    return *this;
+}
+
 void Studio::clean() {
     for (int i = 0; i < trainers.size(); ++i) {
         delete trainers[i];
     }
     trainers.clear();
 
+    workout_options.clear();
+
     for (int i = 0; i < actionsLog.size(); ++i) {
         delete actionsLog[i];
     }
     actionsLog.clear();
 }
-Studio::Studio(const Studio &other) {
+void Studio::copy(const Studio &other) {
+    //
+    // WHY USE CLONE ?
+    // since abstract classes may have many implementations, using a copy constructor will require additional checks
+    // the real object type. clone function is easier since ir returns a copy according to the real object type.
+    //
+
+    // customer counter for id management - every time new customers their id will be set using this counter;
+    customerCounter = other.customerCounter;
+    open = other.open;
     // copy trainers
     for (int i = 0; i < other.trainers.size(); ++i) {
-        Trainer* trainer = new Trainer(const *other.trainers[i]);
+        //
+        // check ! check ! check ! if copy constructor is called and not move constructor
+        //
+        trainers.push_back(new Trainer(*other.trainers[i]));
     }
-
-    return *this;
+    for (int i = 0; i < other.workout_options.size(); ++i) {
+        workout_options.push_back(other.workout_options[i]);
+    }
+    for (int i = 0; i < other.actionsLog.size(); ++i) {
+        actionsLog.push_back(other.actionsLog[i]->clone());
+    }
 }
 
-
 //// ************************************************************
 
 
 //// ************************************************************
-//// ****  get actions ****
+//// ****  get actions from the inserted command ****
 
 BaseAction* Studio::getOpenAction(std::string &command) {
     std::vector<std::string> args = split(command, " ");
@@ -198,7 +238,7 @@ BaseAction* Studio::getOpenAction(std::string &command) {
         std::vector<std::string> customerData = split(args[i], ",");
         std::string name = customerData[0];
         std::string type = customerData[1];
-        int id = getCustomerCounter() + i;
+        int id = getCustomerCounter() + i - 1;
         if (!type.compare("swt")){
             customers.push_back(new SweatyCustomer(name, id));
         }
@@ -211,11 +251,6 @@ BaseAction* Studio::getOpenAction(std::string &command) {
         if (!type.compare("fbd")){
             customers.push_back(new FullBodyCustomer(name, id));
         }
-
-        // clean
-//        for (int i = 0; i < customerData.size(); ++i) {
-//            delete customerData[i];
-//        }
     }
     // start the action
     BaseAction* action = new OpenTrainer(trainerId, customers);
@@ -223,11 +258,6 @@ BaseAction* Studio::getOpenAction(std::string &command) {
 
     // update the customer counter
     setCustomerCounter(getCustomerCounter() + args.size() - 1);
-
-    // clean
-//    for (int i = 0; i < args.size(); ++i) {
-//        delete args[i];
-//    }
 
     //
     return action;

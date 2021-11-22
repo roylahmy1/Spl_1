@@ -33,9 +33,6 @@ void Trainer::removeCustomer(int id) {
     // don't delete the customer as it may be copied to other trainer
     // delete customer;
 }
-
-
-
 Customer* Trainer::getCustomer(int id){
     int index = getCustomerIndex(id);
     if(customersList.size() > index && index >= 0){
@@ -101,10 +98,8 @@ void Trainer::closeTrainer(){
     // update salary
 
 }
-void Trainer::clean(){
-    reset();
-}
 void Trainer::reset(){
+    // use reset since is clears customer data, but is not "meant" for the destructor (even though it is the same), thus a different name was given.
     // clean customers + clean order pairs
     for (int i = customersList.size() - 1; i >= 0 ; --i) {
         delete customersList[i];
@@ -112,7 +107,6 @@ void Trainer::reset(){
     }
     orderList.clear();
 }
-
 int Trainer::getSalary(){
     int salary = 0;
     for (int i = 0; i < orderList.size(); ++i) {
@@ -123,9 +117,6 @@ int Trainer::getSalary(){
 bool Trainer::isOpen(){
     return  open;
 }
-
-
-
 
 //// ************************************************************
 //// **** RULE OF 5 ****
@@ -142,18 +133,6 @@ Trainer &Trainer::operator=(const Trainer &other) {
     }
     return *this;
 }
-void Trainer::copy(const Trainer &other) {
-    capacity = other.capacity;
-    oldsalary = other.oldsalary;
-    open = other.open;
-    // cloning customers, by virtual clone method
-    for (int i = 0; i < other.customersList.size(); ++i) {
-        customersList.push_back(other.customersList[i]->clone());
-    }
-    for (int i = 0; i < other.orderList.size(); ++i) {
-        orderList.push_back({other.orderList[i].first, other.orderList[i].second});
-    }
-}
 Trainer::Trainer(Trainer &&other) {
     copy(other);
     other.clean();
@@ -167,5 +146,20 @@ Trainer &Trainer::operator=(Trainer &&other) {
     return *this;
 }
 
+void Trainer::copy(const Trainer &other) {
+    capacity = other.capacity;
+    oldsalary = other.oldsalary;
+    open = other.open;
+    // cloning customers, by virtual clone method
+    for (int i = 0; i < other.customersList.size(); ++i) {
+        customersList.push_back(other.customersList[i]->clone());
+    }
+    for (int i = 0; i < other.orderList.size(); ++i) {
+        orderList.push_back({other.orderList[i].first, other.orderList[i].second});
+    }
+}
+void Trainer::clean(){
+    reset();
+}
 //// ************************************************************
 
