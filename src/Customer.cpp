@@ -21,7 +21,7 @@ SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {
 };
 std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> result;
-    for (int i = 0; i < workout_options.size(); i++) {
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
         if (workout_options[i].getType() == CARDIO)
             result.push_back(workout_options[i].getId());
 
@@ -41,10 +41,10 @@ CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {
 };
 std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> result;
-    int max = -1;
-    for (int i = 0; i < workout_options.size(); i++) {
-        if (max < workout_options[i].getPrice()) {
-            max = workout_options[i].getPrice();
+    int min = INT16_MAX;
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
+        if (min > workout_options[i].getPrice()) {
+            min = workout_options[i].getPrice();
             if (result.size() == 0)
                 result.push_back(workout_options[i].getId());
             else {
@@ -52,7 +52,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_option
                 result.push_back(workout_options[i].getId());
             }
         }
-        if (max == workout_options[i].getPrice()) {
+        if (min == workout_options[i].getPrice()) {
             if (result[0] > workout_options[i].getId()) {
                 result.pop_back();
                 result.push_back(workout_options[i].getId());
@@ -76,13 +76,13 @@ HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(na
 std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<const Workout*> onlyAnarobic;
     std::vector<int> result;
-    for (int i = 0; i < workout_options.size(); i++) {
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
         if (workout_options[i].getType() == ANAEROBIC) {
             onlyAnarobic.push_back(&workout_options[i]);
         }
     }
     std::sort(onlyAnarobic.begin(), onlyAnarobic.end(), comparing); //need to implement rule of 5 before it will work
-    for(int i=0; i<onlyAnarobic.size(); i++)
+    for(std::size_t i=0; i<onlyAnarobic.size(); i++)
     {
         result.push_back(onlyAnarobic[i]->getId());
     }
@@ -107,7 +107,7 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
     int expensivemixtype = -1;
     int cheapanaerobic = -1;
     std::vector<int> result;
-    for (int i = 0; i < workout_options.size(); i++) {
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
 
         if (workout_options[i].getType() == CARDIO) {
             if (cheapcardio < 0 || cheapcardio > workout_options[i].getPrice()) {
@@ -124,7 +124,7 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
 
         }
     }
-    for (int i = 0; i < workout_options.size(); i++) {
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
 
         if (workout_options[i].getType() == MIXED) {
             if (expensivemixtype < 0 || expensivemixtype < workout_options[i].getPrice()) {
@@ -141,7 +141,7 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
             }
         }
     }
-    for (int i = 0; i < workout_options.size(); i++) {
+    for (std::size_t i = 0; i < workout_options.size(); i++) {
 
         if (workout_options[i].getType() == ANAEROBIC) {
             if (cheapanaerobic < 0 || cheapanaerobic > workout_options[i].getPrice()) {

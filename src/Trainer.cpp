@@ -27,7 +27,7 @@ void Trainer::removeCustomer(int id) {
     }
     // overwrite original orderList
     orderList.clear();
-    for (int i = 0; i <orderListCopy.size(); ++i) {
+    for (std::size_t i = 0; i <orderListCopy.size(); ++i) {
         orderList.push_back(orderListCopy[i]);
     }
     // don't delete the customer as it may be copied to other trainer
@@ -67,7 +67,7 @@ std::vector<OrderPair>& Trainer::getOrders(){
 // get orders by customer id
 std::vector<OrderPair> Trainer::getOrders(int id){
     std::vector<OrderPair> pairs;
-    for (int i = 0; i < orderList.size(); ++i) {
+    for (std::size_t i = 0; i < orderList.size(); ++i) {
         if(orderList[i].first == id){
             pairs.push_back(orderList[i]);
         }
@@ -75,13 +75,13 @@ std::vector<OrderPair> Trainer::getOrders(int id){
     return pairs;
 }
 void Trainer::insert(std::vector<OrderPair> pairs){
-    for (int i = 0; i < pairs.size(); ++i) {
+    for (std::size_t i = 0; i < pairs.size(); ++i) {
         orderList.push_back(pairs[i]);
     }
 }
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout>& workout_options)
 {
-   for(int j=0; j<workout_ids.size(); j++)
+   for(std::size_t j=0; j<workout_ids.size(); j++)
    {
        orderList.push_back({customer_id, workout_options[workout_ids[j]]});
        std::cout << getCustomer(customer_id)->getName() + " Is Doing " + workout_options[workout_ids[j]].getName() << "\n";
@@ -109,7 +109,7 @@ void Trainer::reset(){
 }
 int Trainer::getSalary(){
     int salary = 0;
-    for (int i = 0; i < orderList.size(); ++i) {
+    for (std::size_t i = 0; i < orderList.size(); ++i) {
         salary += orderList[i].second.getPrice();
     }
     return salary+oldsalary;
@@ -151,10 +151,10 @@ void Trainer::copy(const Trainer &other) {
     oldsalary = other.oldsalary;
     open = other.open;
     // cloning customers, by virtual clone method
-    for (int i = 0; i < other.customersList.size(); ++i) {
+    for (std::size_t i = 0; i < other.customersList.size(); ++i) {
         customersList.push_back(other.customersList[i]->clone());
     }
-    for (int i = 0; i < other.orderList.size(); ++i) {
+    for (std::size_t i = 0; i < other.orderList.size(); ++i) {
         orderList.push_back({other.orderList[i].first, other.orderList[i].second});
     }
 }

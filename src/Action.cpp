@@ -37,7 +37,7 @@ std::string BaseAction::statusToString() const {
 BaseAction::~BaseAction() {} // virtual destructor so compiler doesn't create it's own default static bind destructor
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) : trainerId(id) {
-    for (int i = 0; i < customersList.size(); ++i) {
+    for (std::size_t i = 0; i < customersList.size(); ++i) {
         customers.push_back(customersList[i]);
     }
 }
@@ -53,7 +53,7 @@ void OpenTrainer::act(Studio &studio) {
         std::string output = "";
         Trainer *trainer = studio.getTrainer(trainerId);
         output += "open" + trainerId;
-        for (int i = 0; i < customers.size(); i++) {
+        for (std::size_t i = 0; i < customers.size(); i++) {
             trainer->addCustomer(customers[i]);
             output += customers[i]->toString();
         }
@@ -63,7 +63,7 @@ void OpenTrainer::act(Studio &studio) {
 }
 std::string OpenTrainer::toString() const {
     std::string output = "open " + std::to_string(trainerId) + " ";
-    for (int i = 0; i < customers.size(); ++i) {
+    for (std::size_t i = 0; i < customers.size(); ++i) {
         output += customers[i]->toString() + " ";
     }
     return output;
@@ -102,7 +102,7 @@ OpenTrainer &OpenTrainer::operator=(OpenTrainer &&other) {
 
 void OpenTrainer::copy(const OpenTrainer &other) {
     // cloning customers, by virtual clone method
-    for (int i = 0; i < other.customers.size(); ++i) {
+    for (std::size_t i = 0; i < other.customers.size(); ++i) {
         customers.push_back(other.customers[i]->clone());
     }
 }
@@ -139,7 +139,7 @@ void Order::act(Studio &studio) {
         trainer->getOrders().clear();
         std::vector<Customer *> customers = trainer->getCustomers();
         //
-        for (int i = 0; i < customers.size(); ++i) {
+        for (std::size_t i = 0; i < customers.size(); ++i) {
             std::vector<int> customer_workout_ids = customers[i]->order(studio.getWorkoutOptions());
             trainer->order(customers[i]->getId(), customer_workout_ids, studio.getWorkoutOptions());
         }
@@ -242,8 +242,10 @@ PrintWorkoutOptions::PrintWorkoutOptions() : BaseAction() {
 }
 void PrintWorkoutOptions::act(Studio &studio) {
     std::vector<Workout> workout = studio.getWorkoutOptions();
-    for (int i = 0; i < workout.size(); i++) {
-        std::cout << workout[i].getName() + ", " + std::to_string(workout[i].getType()) + ", " +
+    std::string type;
+    for (std::size_t i = 0; i < workout.size(); i++) {
+        if(workout[i].getType()==ANAEROBIC){type="Anaerobic";}else if(workout[i].getType()==CARDIO){type="Cardio";}else type="Mixed";
+        std::cout << workout[i].getName() + ", " + type + ", " +
                      std::to_string(workout[i].getPrice()) + "\n";
     }
     complete();
@@ -265,12 +267,12 @@ void PrintTrainerStatus::act(Studio &studio) {
     } else {
         std::cout << "Trainer " + std::to_string(trainerId) + " status: open \n";
         std::cout << "Customers: \n";
-        for (int i = 0; i < trainer->getCustomers().size(); i++) {
+        for (std::size_t i = 0; i < trainer->getCustomers().size(); i++) {
             Customer *customer = trainer->getCustomers()[i];
             std::cout << std::to_string(customer->getId()) + " " + customer->getName() + "\n";
         }
         std::cout << "Orders:\n";
-        for (int i = 0; i < trainer->getOrders().size(); i++) {
+        for (std::size_t i = 0; i < trainer->getOrders().size(); i++) {
             std::cout << trainer->getOrders()[i].second.getName() + " " +
                          std::to_string(trainer->getOrders()[i].second.getPrice()) + "NIS " +
                          std::to_string(trainer->getOrders()[i].first) + "\n";
@@ -291,7 +293,7 @@ PrintActionsLog::PrintActionsLog() : BaseAction() {
 
 }
 void PrintActionsLog::act(Studio &studio) {
-    for (int i = 0; i < studio.getActionsLog().size() - 1; ++i) { // don't print last since it is the current action, no need to display it
+    for (std::size_t i = 0; i < studio.getActionsLog().size() - 1; ++i) { // don't print last since it is the current action, no need to display it
         BaseAction* action = studio.getActionsLog()[i];
         std::string output = action->toString();
         output += action->statusToString();

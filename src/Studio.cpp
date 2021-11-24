@@ -48,7 +48,7 @@ Studio::Studio(const std::string &configFilePath){
     }
 
     // create workouts
-    for (int i = 2; i < properties.size(); ++i) {
+    for (std::size_t i = 2; i < properties.size(); ++i) {
 
         // 2 of the ',' that separate the values of th3e workout
         int separatorIndex1 = properties[i].find(',');
@@ -184,14 +184,14 @@ Studio &Studio::operator=(Studio &&other) {
 }
 
 void Studio::clean() {
-    for (int i = 0; i < trainers.size(); ++i) {
+    for (std::size_t i = 0; i < trainers.size(); ++i) {
         delete trainers[i];
     }
     trainers.clear();
 
     workout_options.clear();
 
-    for (int i = 0; i < actionsLog.size(); ++i) {
+    for (std::size_t i = 0; i < actionsLog.size(); ++i) {
         delete actionsLog[i];
     }
     actionsLog.clear();
@@ -207,16 +207,16 @@ void Studio::copy(const Studio &other) {
     customerCounter = other.customerCounter;
     open = other.open;
     // copy trainers
-    for (int i = 0; i < other.trainers.size(); ++i) {
+    for (std::size_t i = 0; i < other.trainers.size(); ++i) {
         //
         // check ! check ! check ! if copy constructor is called and not move constructor
         //
         trainers.push_back(new Trainer(*other.trainers[i]));
     }
-    for (int i = 0; i < other.workout_options.size(); ++i) {
+    for (std::size_t i = 0; i < other.workout_options.size(); ++i) {
         workout_options.push_back(other.workout_options[i]);
     }
-    for (int i = 0; i < other.actionsLog.size(); ++i) {
+    for (std::size_t i = 0; i < other.actionsLog.size(); ++i) {
         actionsLog.push_back(other.actionsLog[i]->clone());
     }
 }
@@ -233,7 +233,7 @@ BaseAction* Studio::getOpenAction(std::string &command) {
 
     int trainerId = stringToInt(args[0]);
     // create the customers out of the given data
-    for (int i = 1; i < args.size(); ++i) {
+    for (std::size_t i = 1; i < args.size(); ++i) {
         // customer data = {name, type}
         std::vector<std::string> customerData = split(args[i], ",");
         std::string name = customerData[0];
