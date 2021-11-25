@@ -3,11 +3,11 @@
 #include <string>
 #include <fstream>
 
-Studio::Studio() {
+Studio::Studio() :open(false),trainers(std::vector<Trainer*>()),workout_options(std::vector<Workout>()),actionsLog(std::vector<BaseAction*>()){
     // default values
     open = false;
 }
-Studio::Studio(const std::string &configFilePath){
+Studio::Studio(const std::string &configFilePath) :open(false),trainers(std::vector<Trainer*>()),workout_options(std::vector<Workout>()),actionsLog(std::vector<BaseAction*>()){
     // default values
     open = false;
 
@@ -160,7 +160,7 @@ std::vector<std::string> Studio::split(const std::string& s, const std::string& 
 Studio::~Studio() {
     clean();
 }
-Studio::Studio(const Studio &other) {
+Studio::Studio(const Studio &other):open(false),trainers(std::vector<Trainer*>()),workout_options(std::vector<Workout>()),actionsLog(std::vector<BaseAction*>()) {
     copy(other);
 }
 Studio &Studio::operator=(const Studio &other) {
@@ -170,7 +170,7 @@ Studio &Studio::operator=(const Studio &other) {
     }
     return *this;
 }
-Studio::Studio(Studio &&other) {
+Studio::Studio(Studio &&other):open(false),trainers(std::vector<Trainer*>()),workout_options(std::vector<Workout>()),actionsLog(std::vector<BaseAction*>()) {
     copy(other);
     other.clean();
 }

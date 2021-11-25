@@ -23,15 +23,24 @@ void BaseAction::error(std::string errorMsg) {
     this->errorMsg = errorMsg;
     cout << errorMsg;
 }
+// copy this baseAction values into another
+BaseAction* BaseAction::baseCopy(BaseAction* copyTo) {
+    copyTo->status = status;
+    copyTo->errorMsg = errorMsg;
+    return  copyTo;
+}
 std::string BaseAction::getErrorMsg() const {
     return errorMsg;
 }
 std::string BaseAction::statusToString() const {
-    if (status == COMPLETED){
+    if (status == ERROR){
+        return "Error: " + errorMsg;
+    }
+    else if (status == COMPLETED){
         return "Completed";
     }
     else{
-        return "Error: " + errorMsg;
+        throw "UinitValue";
     }
 }
 BaseAction::~BaseAction() {} // virtual destructor so compiler doesn't create it's own default static bind destructor
@@ -47,6 +56,8 @@ void OpenTrainer::act(Studio &studio) {
         error("Workout session does not exist or is already open");
     } else if (studio.getTrainer(trainerId)->isOpen()) {
         error("Workout session does not exist or is already open");
+    } else if (customers.size() > studio.getTrainer(trainerId)->getCapacity()) {
+        error("Workout session does not exist or is already open");
     }
     //
     else {
@@ -54,7 +65,8 @@ void OpenTrainer::act(Studio &studio) {
         Trainer *trainer = studio.getTrainer(trainerId);
         output += "open" + trainerId;
         for (std::size_t i = 0; i < customers.size(); i++) {
-            trainer->addCustomer(customers[i]);
+            // give trainer it's own clones of the customers
+            trainer->addCustomer(customers[i]->clone());
             output += customers[i]->toString();
         }
         trainer->openTrainer();
@@ -69,7 +81,12 @@ std::string OpenTrainer::toString() const {
     return output;
 }
 BaseAction* OpenTrainer::clone() {
-    return new OpenTrainer(trainerId, customers);
+    std::vector<Customer *> customersCopy;
+    for (std::size_t i = 0; i < customers.size(); ++i) {
+        customersCopy.push_back(customers[i]->clone());
+    }
+    // instead of actually using the pointer, deep copy them
+    return baseCopy(new OpenTrainer(trainerId, customersCopy));;
 }
 
 //// ************************************************************
@@ -109,7 +126,7 @@ void OpenTrainer::copy(const OpenTrainer &other) {
 void OpenTrainer::clean(){
     // clean customers + clean order pairs
     int size =  customers.size();
-    for (int i = size - 1; i >= size; --i) {
+    for (int i = size - 1; i >= 0; --i) {
         Customer* customer = customers[i];
         customers.pop_back();
         delete customer;
@@ -117,7 +134,7 @@ void OpenTrainer::clean(){
     customers.clear();
 }
 
-//// ************************************************************
+//// *****baseCopy(*******************************************************
 
 
 
@@ -152,7 +169,7 @@ std::string Order::toString() const {
     return output;
 }
 BaseAction* Order::clone() {
-    return new Order(trainerId);
+    return baseCopy(new Order(trainerId));
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId)
@@ -164,7 +181,7 @@ void MoveCustomer::act(Studio &studio) {
     else {
         Trainer *trainersrc = studio.getTrainer(srcTrainer);
         Trainer *trainerdst = studio.getTrainer(dstTrainer);
-        if (!trainersrc->isOpen() || !trainerdst->isOpen()) {
+        if (!trainersrc->isOpen() || !trainerdst->isOpen() || trainerdst->getCustomers().size() >= trainerdst->getCapacity()) {
             error("Cannot move customer");
         } else {
             //  std::vector<Customer *> customers = trainersrc->getCustomers();
@@ -189,7 +206,7 @@ std::string MoveCustomer::toString() const {
     return output;
 }
 BaseAction* MoveCustomer::clone() {
-    return new MoveCustomer(srcTrainer, dstTrainer, id);
+    return baseCopy(new MoveCustomer(srcTrainer, dstTrainer, id));
 }
 
 Close::Close(int id) : BaseAction(), trainerId(id) {}
@@ -216,7 +233,7 @@ std::string Close::toString() const {
     return output;
 }
 BaseAction* Close::clone() {
-    return new Close(trainerId);
+    return baseCopy(new Close(trainerId));
 }
 
 CloseAll::CloseAll() : BaseAction() {
@@ -235,7 +252,7 @@ std::string CloseAll::toString() const {
     return output;
 }
 BaseAction* CloseAll::clone() {
-    return new CloseAll();
+    return baseCopy(new CloseAll());
 }
 
 PrintWorkoutOptions::PrintWorkoutOptions() : BaseAction() {
@@ -255,7 +272,7 @@ std::string PrintWorkoutOptions::toString() const {
     return output;
 }
 BaseAction* PrintWorkoutOptions::clone() {
-    return new PrintWorkoutOptions();
+    return baseCopy(new PrintWorkoutOptions());
 }
 
 PrintTrainerStatus::PrintTrainerStatus(int id) : BaseAction(), trainerId(id) {
@@ -286,7 +303,7 @@ std::string PrintTrainerStatus::toString() const {
     return output;
 }
 BaseAction* PrintTrainerStatus::clone() {
-    return new PrintTrainerStatus(trainerId);
+    return baseCopy(new PrintTrainerStatus(trainerId));
 }
 
 PrintActionsLog::PrintActionsLog() : BaseAction() {
@@ -307,7 +324,7 @@ std::string PrintActionsLog::toString() const {
     return output;
 }
 BaseAction* PrintActionsLog::clone() {
-    return new PrintActionsLog();
+    return baseCopy(new PrintActionsLog());
 }
 
 
@@ -323,7 +340,7 @@ std::string BackupStudio::toString() const {
     return output;
 }
 BaseAction* BackupStudio::clone() {
-    return new BackupStudio();
+    return baseCopy(new BackupStudio());
 }
 
 RestoreStudio::RestoreStudio() : BaseAction() {
@@ -343,5 +360,5 @@ std::string RestoreStudio::toString() const {
     return output;
 }
 BaseAction* RestoreStudio::clone() {
-    return new RestoreStudio();
+    return baseCopy(new RestoreStudio());
 }

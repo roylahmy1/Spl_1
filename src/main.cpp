@@ -7,7 +7,7 @@ Studio* backup = nullptr;
 
 int main(int argc, char** argv){
 
-  //  cout << "open 2 Shalom,swt Dan,chp Alice,mcl Bob,fbd";
+    cout << "open 2 Shalom,swt Dan,chp Alice,mcl Bob,fbd";
 
     if(argc!=2){
         std::cout << "usage: studio <config_path>" << std::endl;
@@ -66,7 +66,6 @@ int main(int argc, char** argv){
     }
     studio.getCloseAllAction()->act(studio);
 
-    // clean
     if(backup!=nullptr){
     	delete backup;
     	backup = nullptr;

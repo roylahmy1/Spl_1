@@ -35,6 +35,7 @@ std::string SweatyCustomer::toString() const {
 Customer* SweatyCustomer::clone() const {
     return new SweatyCustomer(this->getName(), this->getId());
 }
+SweatyCustomer::~SweatyCustomer() {}
 
 CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {
 
@@ -69,6 +70,7 @@ std::string CheapCustomer::toString() const {
 Customer* CheapCustomer::clone() const {
     return new CheapCustomer(this->getName(), this->getId());
 }
+CheapCustomer::~CheapCustomer() {}
 
 HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {
 
@@ -98,6 +100,7 @@ bool HeavyMuscleCustomer::comparing(const Workout* a, const Workout* b) {
 Customer* HeavyMuscleCustomer::clone() const {
     return new HeavyMuscleCustomer(this->getName(), this->getId());
 }
+HeavyMuscleCustomer::~HeavyMuscleCustomer() {}
 
 FullBodyCustomer::FullBodyCustomer(std::string name, int id) : Customer(name, id) {
 
@@ -167,3 +170,4 @@ std::string FullBodyCustomer::toString() const {
 Customer* FullBodyCustomer::clone() const {
     return new FullBodyCustomer(this->getName(), this->getId());
 }
+FullBodyCustomer::~FullBodyCustomer() {}
