@@ -1,337 +1,129 @@
-==3793== Memcheck, a memory error detector
-==3793== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3793== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==3793== Command: ./bin/studio /home/spl211/Documents/inputex/inputspl1.txt
-==3793== Parent PID: 20815
-==3793== 
---3793-- 
---3793-- Valgrind options:
---3793--    --leak-check=full
---3793--    --show-leak-kinds=all
---3793--    --track-origins=yes
---3793--    --verbose
---3793--    --log-file=valgrind-out.txt
---3793-- Contents of /proc/version:
---3793--   Linux version 4.15.0-123-generic (buildd@lcy01-amd64-017) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #126-Ubuntu SMP Wed Oct 21 09:40:11 UTC 2020
---3793-- 
---3793-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2
---3793-- Page sizes: currently 4096, max supported 4096
---3793-- Valgrind library directory: /usr/lib/valgrind
---3793-- Reading syms from /home/spl211/Documents/Spl_1/bin/studio
---3793-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
---3793--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
---3793--   .. CRC mismatch (computed ac9397f6 wanted d0d82632)
---3793--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
---3793--   .. CRC is valid
---3793-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
---3793--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
---3793--   .. CRC mismatch (computed 62965bbf wanted eeb84137)
---3793--    object doesn't have a symbol table
---3793--    object doesn't have a dynamic symbol table
---3793-- Scheduler: using generic scheduler lock implementation.
---3793-- Reading suppressions file: /usr/lib/valgrind/default.supp
-==3793== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3793-by-spl211-on-???
-==3793== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3793-by-spl211-on-???
-==3793== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3793-by-spl211-on-???
-==3793== 
-==3793== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==3793== don't want to do, unless you know exactly what you're doing,
-==3793== or are doing some strange experiment):
-==3793==   /usr/lib/valgrind/../../bin/vgdb --pid=3793 ...command...
-==3793== 
-==3793== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==3793==   /path/to/gdb ./bin/studio
-==3793== and then give GDB the following command
-==3793==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=3793
-==3793== --pid is optional if only one valgrind process is running
-==3793== 
---3793-- REDIR: 0x401f320 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
---3793-- REDIR: 0x401f100 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
---3793-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
---3793--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
---3793--   .. CRC mismatch (computed 13d5e98a wanted 1786ecf1)
---3793--    object doesn't have a symbol table
---3793-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
---3793--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
---3793--   .. CRC mismatch (computed 8f77ef36 wanted fcbde737)
---3793--    object doesn't have a symbol table
-==3793== WARNING: new redirection conflicts with existing -- ignoring it
---3793--     old: 0x0401f320 (strlen              ) R-> (0000.0) 0x58060901 ???
---3793--     new: 0x0401f320 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
---3793-- REDIR: 0x401d390 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
---3793-- REDIR: 0x401f860 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
---3793-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
---3793--    object doesn't have a symbol table
---3793-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
---3793--    object doesn't have a symbol table
---3793-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
---3793--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
---3793--   .. CRC mismatch (computed c2c067b2 wanted d73adc7f)
---3793--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
---3793--   .. CRC is valid
---3793-- Reading syms from /lib/x86_64-linux-gnu/libm-2.27.so
---3793--   Considering /lib/x86_64-linux-gnu/libm-2.27.so ..
---3793--   .. CRC mismatch (computed 4cce394c wanted e22acdb4)
---3793--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.27.so ..
---3793--   .. CRC is valid
---3793-- REDIR: 0x547bce0 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547adb0 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bfc0 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547a800 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547ade0 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547d830 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547be50 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bc80 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547ad70 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547a870 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bdb0 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x5499160 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547ad10 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547a8e0 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547c010 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547a8b0 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547c150 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547ae10 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547a830 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547ace0 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x5485730 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547c060 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bc50 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x5499f20 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547b0c0 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bf90 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547bf60 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547d860 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x547c0b0 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
---3793-- REDIR: 0x556b630 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
---3793-- REDIR: 0x54740e0 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
---3793-- REDIR: 0x556b800 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
---3793-- REDIR: 0x5567e10 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4c35e00 (bcmp)
---3793-- REDIR: 0x5546fd0 (libc.so.6:__strcmp_ssse3) redirected to 0x4c33da0 (strcmp)
---3793-- REDIR: 0x4ecf280 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c30110 (operator new(unsigned long))
---3793-- REDIR: 0x556bd40 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4c366e0 (memmove)
---3793-- REDIR: 0x547b600 (libc.so.6:__GI_strstr) redirected to 0x4c37760 (__strstr_sse2)
---3793-- REDIR: 0x4ecf330 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4c30830 (operator new[](unsigned long))
---3793-- REDIR: 0x5567690 (libc.so.6:__memchr_avx2) redirected to 0x4c33f80 (memchr)
---3793-- REDIR: 0x4ecd390 (libstdc++.so.6:operator delete(void*)) redirected to 0x4c311d0 (operator delete(void*))
---3793-- REDIR: 0x4ecd3c0 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c316d0 (operator delete[](void*))
---3793-- REDIR: 0x54749c0 (libc.so.6:free) redirected to 0x4c30cd0 (free)
---3793-- REDIR: 0x556bd20 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
---3793-- REDIR: 0x556b440 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x543996A: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== Use of uninitialised value of size 8
-==3793==    at 0x54358FB: _itoa_word (_itoa.c:179)
-==3793==    by 0x5438F9D: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x5435905: _itoa_word (_itoa.c:179)
-==3793==    by 0x5438F9D: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x54390A4: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x5439BDC: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== Invalid write of size 4
-==3793==    at 0x10BEE8: BaseAction::complete() (Action.cpp:19)
-==3793==    by 0x10F187: RestoreStudio::act(Studio&) (Action.cpp:352)
-==3793==    by 0x10BCA5: main (main.cpp:61)
-==3793==  Address 0x5b85268 is 40 bytes inside a block of size 48 free'd
-==3793==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x112734: RestoreStudio::~RestoreStudio() (Action.h:143)
-==3793==    by 0x117B7A: Studio::clean() (Studio.cpp:195)
-==3793==    by 0x117977: Studio::operator=(Studio const&) (Studio.cpp:168)
-==3793==    by 0x10F17B: RestoreStudio::act(Studio&) (Action.cpp:351)
-==3793==    by 0x10BCA5: main (main.cpp:61)
-==3793==  Block was alloc'd at
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118BBB: Studio::getRestoreAction() (Studio.cpp:328)
-==3793==    by 0x10BC90: main (main.cpp:61)
-==3793== 
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x10BFD2: BaseAction::statusToString[abi:cxx11]() const (Action.cpp:36)
-==3793==    by 0x10EE1C: PrintActionsLog::act(Studio&) (Action.cpp:316)
-==3793==    by 0x10BC1B: main (main.cpp:53)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118B2F: Studio::getBackupAction() (Studio.cpp:323)
-==3793==    by 0x10BC49: main (main.cpp:57)
-==3793== 
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x10BFFA: BaseAction::statusToString[abi:cxx11]() const (Action.cpp:39)
-==3793==    by 0x10EE1C: PrintActionsLog::act(Studio&) (Action.cpp:316)
-==3793==    by 0x10BC1B: main (main.cpp:53)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118B2F: Studio::getBackupAction() (Studio.cpp:323)
-==3793==    by 0x10BC49: main (main.cpp:57)
-==3793== 
-==3793== 
-==3793== HEAP SUMMARY:
-==3793==     in use at exit: 0 bytes in 0 blocks
-==3793==   total heap usage: 248 allocs, 248 frees, 97,700 bytes allocated
-==3793== 
-==3793== All heap blocks were freed -- no leaks are possible
-==3793== 
-==3793== ERROR SUMMARY: 48 errors from 8 contexts (suppressed: 0 from 0)
-==3793== 
-==3793== 1 errors in context 1 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x10BFFA: BaseAction::statusToString[abi:cxx11]() const (Action.cpp:39)
-==3793==    by 0x10EE1C: PrintActionsLog::act(Studio&) (Action.cpp:316)
-==3793==    by 0x10BC1B: main (main.cpp:53)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118B2F: Studio::getBackupAction() (Studio.cpp:323)
-==3793==    by 0x10BC49: main (main.cpp:57)
-==3793== 
-==3793== 
-==3793== 1 errors in context 2 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x10BFD2: BaseAction::statusToString[abi:cxx11]() const (Action.cpp:36)
-==3793==    by 0x10EE1C: PrintActionsLog::act(Studio&) (Action.cpp:316)
-==3793==    by 0x10BC1B: main (main.cpp:53)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118B2F: Studio::getBackupAction() (Studio.cpp:323)
-==3793==    by 0x10BC49: main (main.cpp:57)
-==3793== 
-==3793== 
-==3793== 1 errors in context 3 of 8:
-==3793== Invalid write of size 4
-==3793==    at 0x10BEE8: BaseAction::complete() (Action.cpp:19)
-==3793==    by 0x10F187: RestoreStudio::act(Studio&) (Action.cpp:352)
-==3793==    by 0x10BCA5: main (main.cpp:61)
-==3793==  Address 0x5b85268 is 40 bytes inside a block of size 48 free'd
-==3793==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x112734: RestoreStudio::~RestoreStudio() (Action.h:143)
-==3793==    by 0x117B7A: Studio::clean() (Studio.cpp:195)
-==3793==    by 0x117977: Studio::operator=(Studio const&) (Studio.cpp:168)
-==3793==    by 0x10F17B: RestoreStudio::act(Studio&) (Action.cpp:351)
-==3793==    by 0x10BCA5: main (main.cpp:61)
-==3793==  Block was alloc'd at
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x118BBB: Studio::getRestoreAction() (Studio.cpp:328)
-==3793==    by 0x10BC90: main (main.cpp:61)
-==3793== 
-==3793== 
-==3793== 5 errors in context 4 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x5439BDC: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== 
-==3793== 5 errors in context 5 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x54390A4: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== 
-==3793== 5 errors in context 6 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x543996A: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== 
-==3793== 15 errors in context 7 of 8:
-==3793== Conditional jump or move depends on uninitialised value(s)
-==3793==    at 0x5435905: _itoa_word (_itoa.c:179)
-==3793==    by 0x5438F9D: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== 
-==3793== 15 errors in context 8 of 8:
-==3793== Use of uninitialised value of size 8
-==3793==    at 0x54358FB: _itoa_word (_itoa.c:179)
-==3793==    by 0x5438F9D: vfprintf (vfprintf.c:1642)
-==3793==    by 0x546597F: vsnprintf (vsnprintf.c:114)
-==3793==    by 0x10F505: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...) (string_conversions.h:111)
-==3793==    by 0x10F3E9: std::__cxx11::to_string(int) (basic_string.h:6416)
-==3793==    by 0x10E9DA: PrintTrainerStatus::act(Studio&) (Action.cpp:297)
-==3793==    by 0x10BB01: main (main.cpp:37)
-==3793==  Uninitialised value was created by a heap allocation
-==3793==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3793==    by 0x116CAD: Studio::Studio(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Studio.cpp:47)
-==3793==    by 0x10B84D: main (main.cpp:17)
-==3793== 
-==3793== ERROR SUMMARY: 48 errors from 8 contexts (suppressed: 0 from 0)
+==5326== Memcheck, a memory error detector
+==5326== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5326== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==5326== Command: ./bin/studio /home/spl211/Documents/inputex/inputspl1.txt
+==5326== Parent PID: 20815
+==5326== 
+--5326-- 
+--5326-- Valgrind options:
+--5326--    --leak-check=full
+--5326--    --show-leak-kinds=all
+--5326--    --track-origins=yes
+--5326--    --verbose
+--5326--    --log-file=valgrind-out.txt
+--5326-- Contents of /proc/version:
+--5326--   Linux version 4.15.0-123-generic (buildd@lcy01-amd64-017) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #126-Ubuntu SMP Wed Oct 21 09:40:11 UTC 2020
+--5326-- 
+--5326-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2
+--5326-- Page sizes: currently 4096, max supported 4096
+--5326-- Valgrind library directory: /usr/lib/valgrind
+--5326-- Reading syms from /home/spl211/Documents/Spl_1/bin/studio
+--5326-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--5326--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--5326--   .. CRC mismatch (computed ac9397f6 wanted d0d82632)
+--5326--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--5326--   .. CRC is valid
+--5326-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--5326--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--5326--   .. CRC mismatch (computed 62965bbf wanted eeb84137)
+--5326--    object doesn't have a symbol table
+--5326--    object doesn't have a dynamic symbol table
+--5326-- Scheduler: using generic scheduler lock implementation.
+--5326-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==5326== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-5326-by-spl211-on-???
+==5326== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-5326-by-spl211-on-???
+==5326== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-5326-by-spl211-on-???
+==5326== 
+==5326== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==5326== don't want to do, unless you know exactly what you're doing,
+==5326== or are doing some strange experiment):
+==5326==   /usr/lib/valgrind/../../bin/vgdb --pid=5326 ...command...
+==5326== 
+==5326== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==5326==   /path/to/gdb ./bin/studio
+==5326== and then give GDB the following command
+==5326==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=5326
+==5326== --pid is optional if only one valgrind process is running
+==5326== 
+--5326-- REDIR: 0x401f320 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--5326-- REDIR: 0x401f100 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--5326-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--5326--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--5326--   .. CRC mismatch (computed 13d5e98a wanted 1786ecf1)
+--5326--    object doesn't have a symbol table
+--5326-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--5326--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--5326--   .. CRC mismatch (computed 8f77ef36 wanted fcbde737)
+--5326--    object doesn't have a symbol table
+==5326== WARNING: new redirection conflicts with existing -- ignoring it
+--5326--     old: 0x0401f320 (strlen              ) R-> (0000.0) 0x58060901 ???
+--5326--     new: 0x0401f320 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--5326-- REDIR: 0x401d390 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--5326-- REDIR: 0x401f860 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--5326-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+--5326--    object doesn't have a symbol table
+--5326-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
+--5326--    object doesn't have a symbol table
+--5326-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--5326--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--5326--   .. CRC mismatch (computed c2c067b2 wanted d73adc7f)
+--5326--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--5326--   .. CRC is valid
+--5326-- Reading syms from /lib/x86_64-linux-gnu/libm-2.27.so
+--5326--   Considering /lib/x86_64-linux-gnu/libm-2.27.so ..
+--5326--   .. CRC mismatch (computed 4cce394c wanted e22acdb4)
+--5326--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.27.so ..
+--5326--   .. CRC is valid
+--5326-- REDIR: 0x547bce0 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547adb0 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bfc0 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547a800 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547ade0 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547d830 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547be50 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bc80 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547ad70 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547a870 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bdb0 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x5499160 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547ad10 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547a8e0 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547c010 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547a8b0 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547c150 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547ae10 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547a830 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547ace0 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x5485730 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547c060 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bc50 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x5499f20 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547b0c0 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bf90 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547bf60 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547d860 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x547c0b0 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--5326-- REDIR: 0x556b630 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--5326-- REDIR: 0x54740e0 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--5326-- REDIR: 0x556b800 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--5326-- REDIR: 0x5567e10 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4c35e00 (bcmp)
+--5326-- REDIR: 0x5546fd0 (libc.so.6:__strcmp_ssse3) redirected to 0x4c33da0 (strcmp)
+--5326-- REDIR: 0x4ecf280 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c30110 (operator new(unsigned long))
+--5326-- REDIR: 0x556bd40 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4c366e0 (memmove)
+--5326-- REDIR: 0x547b600 (libc.so.6:__GI_strstr) redirected to 0x4c37760 (__strstr_sse2)
+--5326-- REDIR: 0x4ecf330 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4c30830 (operator new[](unsigned long))
+--5326-- REDIR: 0x5567690 (libc.so.6:__memchr_avx2) redirected to 0x4c33f80 (memchr)
+--5326-- REDIR: 0x4ecd390 (libstdc++.so.6:operator delete(void*)) redirected to 0x4c311d0 (operator delete(void*))
+--5326-- REDIR: 0x4ecd3c0 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c316d0 (operator delete[](void*))
+--5326-- REDIR: 0x54749c0 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+--5326-- REDIR: 0x556bd20 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--5326-- REDIR: 0x556b440 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+==5326== 
+==5326== HEAP SUMMARY:
+==5326==     in use at exit: 0 bytes in 0 blocks
+==5326==   total heap usage: 263 allocs, 263 frees, 97,968 bytes allocated
+==5326== 
+==5326== All heap blocks were freed -- no leaks are possible
+==5326== 
+==5326== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==5326== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

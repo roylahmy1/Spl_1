@@ -4,7 +4,7 @@
 #include "../include/Customer.h"
 #include "../include/Workout.h"
 
-Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {}
+Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false), oldsalary(0), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {}
 int Trainer::getCapacity() const{
     return capacity;
 }

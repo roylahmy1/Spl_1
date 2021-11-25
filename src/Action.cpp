@@ -9,7 +9,7 @@ using namespace std;
 
 //Forward declaration
 
-BaseAction::BaseAction() {
+BaseAction::BaseAction(): status(ERROR), errorMsg(""){
 
 }
 ActionStatus BaseAction::getStatus() const {
@@ -332,8 +332,8 @@ BackupStudio::BackupStudio() : BaseAction() {
 
 }
 void BackupStudio::act(Studio &studio) {
-    backup = new Studio(studio);
     complete();
+    backup = new Studio(studio);
 }
 std::string BackupStudio::toString() const {
     std::string output = "backup ";
@@ -348,8 +348,8 @@ RestoreStudio::RestoreStudio() : BaseAction() {
 }
 void RestoreStudio::act(Studio &studio) {
     if (backup) {
+        complete(); // useless technically
         studio = *backup;
-        complete();
     }
     else{
         error("No backup available");
