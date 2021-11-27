@@ -45,7 +45,7 @@ std::string BaseAction::statusToString() const {
 }
 BaseAction::~BaseAction() {} // virtual destructor so compiler doesn't create it's own default static bind destructor
 
-OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) : trainerId(id) {
+OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) : trainerId(id), customers(std::vector<Customer*>()) {
     for (std::size_t i = 0; i < customersList.size(); ++i) {
         customers.push_back(customersList[i]);
     }
@@ -53,11 +53,11 @@ OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) : train
 void OpenTrainer::act(Studio &studio) {
     // throw errors
     if (studio.getNumOfTrainers() <= trainerId) {
-        error("Workout session does not exist or is already open");
+        error("Error: Trainer does not exist or is not open");
     } else if (studio.getTrainer(trainerId)->isOpen()) {
         error("Workout session does not exist or is already open");
-    } else if (customers.size() > studio.getTrainer(trainerId)->getCapacity()) {
-        error("Workout session does not exist or is already open");
+    } else if ((unsigned)customers.size() > (unsigned)studio.getTrainer(trainerId)->getCapacity()) {
+        error("Error: Trainer does not exist or is not open");
     }
     //
     else {
@@ -94,7 +94,7 @@ BaseAction* OpenTrainer::clone() {
 OpenTrainer::~OpenTrainer() {
     clean();
 }
-OpenTrainer::OpenTrainer(const OpenTrainer &other): trainerId(other.trainerId) {
+OpenTrainer::OpenTrainer(const OpenTrainer &other): trainerId(other.trainerId),customers(std::vector<Customer*>()) {
     copy(other);
 }
 OpenTrainer &OpenTrainer::operator=(const OpenTrainer &other) {
@@ -104,7 +104,7 @@ OpenTrainer &OpenTrainer::operator=(const OpenTrainer &other) {
     }
     return *this;
 }
-OpenTrainer::OpenTrainer(OpenTrainer &&other): trainerId(other.trainerId) {
+OpenTrainer::OpenTrainer(OpenTrainer &&other): trainerId(other.trainerId),customers(std::vector<Customer*>()) {
     copy(other);
     other.clean();
 }
@@ -181,7 +181,7 @@ void MoveCustomer::act(Studio &studio) {
     else {
         Trainer *trainersrc = studio.getTrainer(srcTrainer);
         Trainer *trainerdst = studio.getTrainer(dstTrainer);
-        if (!trainersrc->isOpen() || !trainerdst->isOpen() || trainerdst->getCustomers().size() >= trainerdst->getCapacity()) {
+        if (!trainersrc->isOpen() || !trainerdst->isOpen() || (unsigned)trainerdst->getCustomers().size() >= (unsigned)trainerdst->getCapacity()) {
             error("Cannot move customer");
         } else {
             //  std::vector<Customer *> customers = trainersrc->getCustomers();
@@ -189,7 +189,7 @@ void MoveCustomer::act(Studio &studio) {
             if (!customer) {
                 error("Cannot move customer");
             }
-            else if (trainerdst->getCapacity() == trainerdst->getCustomers().size()) {
+            else if ((unsigned)trainerdst->getCapacity() == (unsigned)trainerdst->getCustomers().size()) {
                 error("Cannot move customer");
             } else {
                 Customer *remove = trainersrc->getCustomer(id);
@@ -333,6 +333,8 @@ BackupStudio::BackupStudio() : BaseAction() {
 }
 void BackupStudio::act(Studio &studio) {
     complete();
+    if(backup!= nullptr)
+        delete backup;
     backup = new Studio(studio);
 }
 std::string BackupStudio::toString() const {

@@ -36,7 +36,7 @@ Studio::Studio(const std::string &configFilePath) :open(false),trainers(std::vec
         // get the capacity
         int separatorIndex = capacityOfTrainers.find(',');
         int capacityOfTrainer = 0;
-        if (separatorIndex != std::string::npos) {
+        if ((unsigned)separatorIndex != (unsigned)std::string::npos) {
             capacityOfTrainer = stringToInt(capacityOfTrainers.substr(0, separatorIndex));
             capacityOfTrainers = capacityOfTrainers.substr(separatorIndex + 1, capacityOfTrainers.length() - (separatorIndex + 1));
         }
@@ -140,7 +140,7 @@ std::vector<std::string> Studio::split(const std::string& s, const std::string& 
     std::vector<std::string> v;
     int s_pos = 0;
     int e_pos;
-    while ((e_pos = s.find(delimiter, s_pos)) != std::string::npos) {
+    while ((unsigned)(e_pos = s.find(delimiter, s_pos)) !=(unsigned)std::string::npos) {
 //        std::string segment = ;
 //        std::string* segmentP = &segment;
         v.push_back(s.substr(s_pos, e_pos - s_pos));

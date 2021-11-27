@@ -4,7 +4,7 @@
 #include "../include/Customer.h"
 #include "../include/Workout.h"
 
-Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false), oldsalary(0), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {}
+Trainer::Trainer(int t_capacity): oldsalary(0), capacity(t_capacity), open(false), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {}
 int Trainer::getCapacity() const{
     return capacity;
 }
@@ -13,7 +13,6 @@ void Trainer::addCustomer(Customer* customer){
 }
 void Trainer::removeCustomer(int id) {
     int index =  getCustomerIndex(id);
-    Customer* customer = getCustomer(id);
     customersList.erase(customersList.begin() + index);
     // remove orderpair by creating copy, and then removing original
     std::vector<OrderPair> orderListCopy;
@@ -123,7 +122,7 @@ bool Trainer::isOpen(){
 Trainer::~Trainer() {
     clean();
 }
-Trainer::Trainer(const Trainer &other): capacity(other.capacity), open(other.open), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {
+Trainer::Trainer(const Trainer &other):oldsalary(0), capacity(other.capacity), open(other.open), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()) {
     copy(other);
 }
 Trainer &Trainer::operator=(const Trainer &other) {
@@ -133,7 +132,7 @@ Trainer &Trainer::operator=(const Trainer &other) {
     }
     return *this;
 }
-Trainer::Trainer(Trainer &&other): capacity(other.capacity), open(other.open), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()){
+Trainer::Trainer(Trainer &&other):oldsalary(0), capacity(other.capacity), open(other.open), customersList(std::vector<Customer*>()),orderList(std::vector<OrderPair>()){
     copy(other);
     other.clean();
 }

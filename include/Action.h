@@ -29,8 +29,8 @@ protected:
     void error(std::string errorMsg);
     std::string getErrorMsg() const;
 private:
-    std::string errorMsg;
     ActionStatus status;
+    std::string errorMsg;
 };
 
 // NEED RULE OF 5
